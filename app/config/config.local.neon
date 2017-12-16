@@ -1,1 +1,8 @@
 parameters:
+
+doctrine:
+    user: root
+    password: ''
+    dbname: doctrine
+    metadata:
+        App: %appDir%
