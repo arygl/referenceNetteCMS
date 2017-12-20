@@ -30,7 +30,7 @@ class User extends BaseEntity
     
     /**
      * username column
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     protected $name;
     
