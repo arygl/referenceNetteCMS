@@ -2,13 +2,12 @@
 
 namespace App\Model\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\BaseEntity;
 
 /**
  * Entita pro user tabulku
  * @package App\Model\Entities
- * @ORM\Entity
+ * @Entity
  */
 class User extends BaseEntity 
 {
@@ -23,9 +22,9 @@ class User extends BaseEntity
     
     /**
      * user ID column
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
     protected $id;
     
@@ -37,31 +36,31 @@ class User extends BaseEntity
     
     /**
      * password column
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     protected $password;
     
     /**
      * email column
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     protected $email;   
     
     /**
      * ip addres column
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     protected $ip;  
     
     /**
      * registration date column
-     * @ORM\Column(name="`registration_date`",type="datetime")
+     * @Column(name="`registration_date`",type="datetime")
      */
     protected $registrationDate;  
     
     /**
      * user role column
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     protected $role;  
     
