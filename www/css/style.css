@@ -1,50 +1,217 @@
-body {
-	font-size: 15px;
-	line-height: 1.6;
-	color: #333;
-	background: white;
+html, body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+50,ededed+100 */
+    background: rgb(255, 255, 255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(50%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0); /* IE6-9 */
 }
 
-h1 {
-	color: #3484D2;
+#container {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fefefe;
 }
 
-#ajax-spinner {
-	margin: 15px 0 0 15px;
-	padding: 13px;
-	background: white url('../images/spinner.gif') no-repeat 50% 50%;
-	font-size: 0;
-	z-index: 123456;
-	display: none;
+#header {
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    background-color: #000;
+    color: #eee;
+    border-bottom: 4px solid #ccc;
 }
 
-div.flash {
-	color: black;
-	background: #FFF9D7;
-	border: 1px solid #E2C822;
-	padding: 1em;
-	margin: 1em 0;
+#header #logo {
+    position: absolute;
+    top: 10px;
+    left: 30px;
 }
 
-a[href^="#error:"] {
-	background: red;
-	color: white;
+#header #logo h1 {
+    text-shadow: 0 0 4px #aa0000;
+    color: #ddd;
+    font-size: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+#header #userInfo {
+    position: absolute;
+    width: 200px;
+    top: 20px;
+    right: 10px;
+}
+
+#header a {
+    margin: 0 2px;
+    background: #484848;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    display: inline-block;
+    font-family: arial, sans-serif;
+    font-weight: bold;
+    color: #ccc;
+    text-decoration: none;
+    border: 1px solid #888;
+    text-align: center;
+    -webkit-transition: box-shadow 0.1s;
+}
+
+#header a:hover {
+    background-color: #666;
+}
+
+#flashes {
+    width: 100%;
+    color: #ccc;
+    background: #484848;
+    border-bottom: 1px solid #888;
+    padding: 15px 0;
+    margin: 0;
+}
+
+#flashes .text {
+    margin-left: 30px;
+}
+
+#header #menu {
+    position: relative;
+    top: 115px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+#header #leftMenu {
+    float: left;
+}
+
+#content {
+    margin: 0 auto;
+    width: 999px;
+    min-height: 300px;
+    padding-bottom: 60px;
+}
+
+#content h1 {
+    color: #3484D2;
+    border-bottom: 2px solid #ddd;
+    font-size: 30px;
+}
+
+#content h2 {
+    font-size: 20px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #000;
+    color: #eee;
+    border-top: 4px solid #ccc;
+}
+
+#footer .text {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.articleItem {
+    width: 350px;
+    border: 1px solid #666;
+    padding: 3px;
+    margin: 10px 0;
+}
+
+.articleItem h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.articleItem .info {
+    font-size: 13px;
+}
+
+.articleItem .content {
+    padding: 2px 0;
+    margin: 15px 0;
+    border-bottom: 1px solid #666;
 }
 
 form th, form td {
-	vertical-align: top;
-	font-weight: normal;
+    vertical-align: top;
+    font-weight: normal;
 }
 
 form th {
-	text-align: right;
+    text-align: right;
 }
 
 form .required label {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 form .error {
-	color: #D00;
-	font-weight: bold;
+    color: #D00;
+    font-weight: bold;
+}
+
+table.infoTable {
+    border: 1px solid #333;
+    border-spacing: 0;
+}
+
+table.infoTable th, table.infoTable td {
+    padding: 8px;
+    border: 1px solid #333;
+}
+
+table.infoTable th {
+    background-color: #444;
+    color: #eee;
+}
+
+table.articleDetailAdmin {
+}
+
+table.articleDetailAdmin th, table.articleDetailAdmin td {
+    width: 150px;
+    text-align: center;
+}
+
+table.articleDetailAdmin .content {
+    width: 700px !important;
+}
+
+table.userProfile {
+}
+
+table.userProfile th, table.userProfile td {
+    width: 250px;
+    text-align: center;
+}
+
+.alignLeft {
+    text-align: left !important;
+}
+
+.alignCenter {
+    text-align: center !important;
 }

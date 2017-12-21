@@ -24,10 +24,8 @@ database:
 
 
 services:
-	- App\Forms\FormFactory
-	- App\Forms\SignInFormFactory
-	- App\Forms\SignUpFormFactory
-	router: App\RouterFactory::createRouter
+        - App\Model\Facades\UserFacade
+        router: App\RouterFactory::createRouter
 
 extensions:
         console: Kdyby\Console\DI\ConsoleExtension

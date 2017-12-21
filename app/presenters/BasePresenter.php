@@ -2,22 +2,34 @@
 
 namespace App\Presenters;
 
-use Nette;
-use App\Model;
+use App\Model\Entities\User as UserEntity;
+use App\Model\Facades\UserFacade;
+use Kdyby\Translation\Translator;
 use Nette\Application\UI\Presenter;
+use Nette\Bridges\ApplicationLatte\Template;
 
 
 /**
  * Základní presenter pro všechny ostatni presentery v aplikaci
  * @package App/Presenters
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends Presenter
 {
     /** @persistent null|string Jazykova verze aplikace */
     public $locale;
     
     /**
-     * @var \Kdyby\Translation\Translator Preklad jazyka na urovni presenteru
+     * @var UserFacade Fasada pro manipulaci s uzivateli 
+     */
+    public $userFacade;
+    
+    /**
+     * @var UserEntity Entita pro aktualniho uzivatele
+     */
+    protected $userEntity;
+
+    /**
+     * @var Translator Preklad jazyka na urovni presenteru
      * @inject
      */
     public $translator;
@@ -33,5 +45,33 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->translator->createTemplateHelpers()
                 ->register($template->getLatte());
         return $template;
+    }
+    
+    /**
+     * vola se na zacatku kazde akce kazdeho presenteru a inicializuje entitu uzivatele
+     */
+    public function startup() 
+    {
+        parent::startup();
+        if ($this->getUser()->isLoggedIn())
+        {
+            $this->userEntity = $this->userFacade->getUser($this->getUser()->getId());
+        }
+        else
+        {
+        // Aby slo pouzit $userEntity->isAdmin(), kdyz neni uzivatel prihlaset
+            $entity = new UserEntity();
+            $entity->role = UserEntity::ROLE_USER;
+            $this->userEntity = $entity;
+        }
+    }
+    
+    /**
+     * vola se pred vykreslenim sablony kazdeho presenteru a predava promenne do layoutu aplikace
+     */
+    public function beforeRender() 
+    {
+        parent::beforeRender();
+        $this->template->userEntity = $this->userEntity;
     }
 }
