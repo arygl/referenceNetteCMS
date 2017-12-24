@@ -26,6 +26,9 @@ database:
 services:
         - App\Model\Facades\UserFacade
         router: App\RouterFactory::createRouter
+        
+    #Factories
+        - App\Forms\SignFormFactory
 
 extensions:
         console: Kdyby\Console\DI\ConsoleExtension

@@ -33,7 +33,13 @@
                             {/if}
                     </div>
                     <div id="menu">
-                            <a n:href="Homepage:default">{_menu.homepage}</a>
+                        <a n:href="Homepage:default">{_menu.homepage}</a>
+                        {if $user->isLoggedIn()}
+                            <a n:href="logout!">{_menu.logout}</a>
+                        {else}
+                            <a n:href="Sign:in">{_menu.login}</a>
+                            <a n:href="Sign:up">{_menu.signUp}</a>
+                         {/if}
                     </div>
             </div>
             <div id="content">

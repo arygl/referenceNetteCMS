@@ -3,6 +3,10 @@
 namespace App\Model\Entities;
 
 use Kdyby\Doctrine\Entities\BaseEntity;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Column;
 
 /**
  * Entita pro user tabulku

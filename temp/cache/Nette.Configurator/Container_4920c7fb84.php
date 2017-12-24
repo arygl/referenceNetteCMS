@@ -66,7 +66,11 @@ class Container_4920c7fb84 extends Nette\DI\Container
 					'doctrine.default.repositoryFactory',
 					'doctrine.default.diagnosticsPanel',
 				],
-				['doctrine.default.cacheCleaner', '112_App_Model_Facades_UserFacade'],
+				[
+					'doctrine.default.cacheCleaner',
+					'112_App_Forms_SignFormFactory',
+					'113_App_Model_Facades_UserFacade',
+				],
 			],
 			'Doctrine\ORM\Repository\RepositoryFactory' => [['doctrine.default.repositoryFactory']],
 			'Kdyby\Doctrine\RepositoryFactory' => [['doctrine.default.repositoryFactory']],
@@ -295,19 +299,21 @@ class Container_4920c7fb84 extends Nette\DI\Container
 			'Symfony\Component\Translation\Loader\JsonFileLoader' => [['translation.loader.json']],
 			'Kdyby\Translation\Loader\NeonFileLoader' => [['translation.loader.neon']],
 			'Kdyby\Translation\Console\ExtractCommand' => [1 => ['translation.console.extract']],
-			'App\Model\Facades\UserFacade' => [1 => ['112_App_Model_Facades_UserFacade']],
-			'App\Presenters\BasePresenter' => [1 => ['application.1', 'application.3']],
-			'Nette\Application\UI\Presenter' => [['application.1', 'application.3', 'application.4']],
-			'Nette\Application\UI\Control' => [['application.1', 'application.3', 'application.4']],
-			'Nette\Application\UI\Component' => [['application.1', 'application.3', 'application.4']],
-			'Nette\ComponentModel\Container' => [['application.1', 'application.3', 'application.4']],
-			'Nette\ComponentModel\Component' => [['application.1', 'application.3', 'application.4']],
-			'Nette\Application\UI\IRenderable' => [['application.1', 'application.3', 'application.4']],
-			'Nette\ComponentModel\IContainer' => [['application.1', 'application.3', 'application.4']],
-			'Nette\ComponentModel\IComponent' => [['application.1', 'application.3', 'application.4']],
-			'Nette\Application\UI\ISignalReceiver' => [['application.1', 'application.3', 'application.4']],
-			'Nette\Application\UI\IStatePersistent' => [['application.1', 'application.3', 'application.4']],
-			'ArrayAccess' => [['application.1', 'application.3', 'application.4']],
+			'App\Forms\SignFormFactory' => [1 => ['112_App_Forms_SignFormFactory']],
+			'Nette\Security\IAuthenticator' => [1 => ['113_App_Model_Facades_UserFacade']],
+			'App\Model\Facades\UserFacade' => [1 => ['113_App_Model_Facades_UserFacade']],
+			'App\Presenters\BasePresenter' => [1 => ['application.1', 'application.3', 'application.4']],
+			'Nette\Application\UI\Presenter' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\Application\UI\Control' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\Application\UI\Component' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\ComponentModel\Container' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\ComponentModel\Component' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\Application\UI\IRenderable' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\ComponentModel\IContainer' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\ComponentModel\IComponent' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\Application\UI\ISignalReceiver' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'Nette\Application\UI\IStatePersistent' => [['application.1', 'application.3', 'application.4', 'application.5']],
+			'ArrayAccess' => [['application.1', 'application.3', 'application.4', 'application.5']],
 			'Nette\Application\IPresenter' => [
 				[
 					'application.1',
@@ -316,27 +322,31 @@ class Container_4920c7fb84 extends Nette\DI\Container
 					'application.4',
 					'application.5',
 					'application.6',
+					'application.7',
 				],
 			],
 			'App\Presenters\Error4xxPresenter' => [1 => ['application.1']],
 			'App\Presenters\ErrorPresenter' => [1 => ['application.2']],
 			'App\Presenters\HomepagePresenter' => [1 => ['application.3']],
-			'KdybyModule\CliPresenter' => [1 => ['application.4']],
-			'NetteModule\ErrorPresenter' => [1 => ['application.5']],
-			'NetteModule\MicroPresenter' => [1 => ['application.6']],
+			'App\Presenters\SignPresenter' => [1 => ['application.4']],
+			'KdybyModule\CliPresenter' => [1 => ['application.5']],
+			'NetteModule\ErrorPresenter' => [1 => ['application.6']],
+			'NetteModule\MicroPresenter' => [1 => ['application.7']],
 			'Nette\DI\Container' => [1 => ['container']],
 		],
 		'services' => [
-			'112_App_Model_Facades_UserFacade' => 'App\Model\Facades\UserFacade',
+			'112_App_Forms_SignFormFactory' => 'App\Forms\SignFormFactory',
+			'113_App_Model_Facades_UserFacade' => 'App\Model\Facades\UserFacade',
 			'annotations.cache.annotations' => 'Doctrine\Common\Cache\Cache',
 			'annotations.reader' => 'Doctrine\Common\Annotations\Reader',
 			'annotations.reflectionReader' => 'Doctrine\Common\Annotations\AnnotationReader',
 			'application.1' => 'App\Presenters\Error4xxPresenter',
 			'application.2' => 'App\Presenters\ErrorPresenter',
 			'application.3' => 'App\Presenters\HomepagePresenter',
-			'application.4' => 'KdybyModule\CliPresenter',
-			'application.5' => 'NetteModule\ErrorPresenter',
-			'application.6' => 'NetteModule\MicroPresenter',
+			'application.4' => 'App\Presenters\SignPresenter',
+			'application.5' => 'KdybyModule\CliPresenter',
+			'application.6' => 'NetteModule\ErrorPresenter',
+			'application.7' => 'NetteModule\MicroPresenter',
 			'application.application' => 'Nette\Application\Application',
 			'application.linkGenerator' => 'Nette\Application\LinkGenerator',
 			'application.presenterFactory' => 'Nette\Application\IPresenterFactory',
@@ -455,6 +465,7 @@ class Container_4920c7fb84 extends Nette\DI\Container
 				'application.4' => true,
 				'application.5' => true,
 				'application.6' => true,
+				'application.7' => true,
 				'doctrine.cli.0' => false,
 				'doctrine.cli.1' => false,
 				'doctrine.cli.10' => false,
@@ -477,9 +488,10 @@ class Container_4920c7fb84 extends Nette\DI\Container
 				'application.1' => 'App\Presenters\Error4xxPresenter',
 				'application.2' => 'App\Presenters\ErrorPresenter',
 				'application.3' => 'App\Presenters\HomepagePresenter',
-				'application.4' => 'KdybyModule\CliPresenter',
-				'application.5' => 'NetteModule\ErrorPresenter',
-				'application.6' => 'NetteModule\MicroPresenter',
+				'application.4' => 'App\Presenters\SignPresenter',
+				'application.5' => 'KdybyModule\CliPresenter',
+				'application.6' => 'NetteModule\ErrorPresenter',
+				'application.7' => 'NetteModule\MicroPresenter',
 			],
 			'kdyby.console.command' => [
 				'doctrine.cli.0' => true,
@@ -584,7 +596,15 @@ class Container_4920c7fb84 extends Nette\DI\Container
 	}
 
 
-	public function createService__112_App_Model_Facades_UserFacade(): App\Model\Facades\UserFacade
+	public function createService__112_App_Forms_SignFormFactory(): App\Forms\SignFormFactory
+	{
+		$service = new App\Forms\SignFormFactory($this->getService('113_App_Model_Facades_UserFacade'),
+			$this->getService('translation.default'), $this->getService('security.user'));
+		return $service;
+	}
+
+
+	public function createService__113_App_Model_Facades_UserFacade(): App\Model\Facades\UserFacade
 	{
 		$service = new App\Model\Facades\UserFacade($this->getService('doctrine.default.entityManager'));
 		return $service;
@@ -624,6 +644,7 @@ class Container_4920c7fb84 extends Nette\DI\Container
 			$this->getService('routing.router'), $this->getService('http.request'),
 			$this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
+		$service->userFacade = $this->getService('113_App_Model_Facades_UserFacade');
 		$service->translator = $this->getService('translation.default');
 		$service->invalidLinkMode = 5;
 		$service->onShutdown = $this->getService('events.manager')->createEvent(['App\Presenters\Error4xxPresenter', 'onShutdown'],
@@ -648,6 +669,7 @@ class Container_4920c7fb84 extends Nette\DI\Container
 			$this->getService('routing.router'), $this->getService('http.request'),
 			$this->getService('http.response'), $this->getService('session.session'),
 			$this->getService('security.user'), $this->getService('latte.templateFactory'));
+		$service->userFacade = $this->getService('113_App_Model_Facades_UserFacade');
 		$service->translator = $this->getService('translation.default');
 		$service->invalidLinkMode = 5;
 		$service->onShutdown = $this->getService('events.manager')->createEvent(['App\Presenters\HomepagePresenter', 'onShutdown'],
@@ -658,7 +680,26 @@ class Container_4920c7fb84 extends Nette\DI\Container
 	}
 
 
-	public function createServiceApplication__4(): KdybyModule\CliPresenter
+	public function createServiceApplication__4(): App\Presenters\SignPresenter
+	{
+		$service = new App\Presenters\SignPresenter;
+		$service->injectPrimary($this, $this->getService('application.presenterFactory'),
+			$this->getService('routing.router'), $this->getService('http.request'),
+			$this->getService('http.response'), $this->getService('session.session'),
+			$this->getService('security.user'), $this->getService('latte.templateFactory'));
+		$service->userFacade = $this->getService('113_App_Model_Facades_UserFacade');
+		$service->translator = $this->getService('translation.default');
+		$service->formFactory = $this->getService('112_App_Forms_SignFormFactory');
+		$service->invalidLinkMode = 5;
+		$service->onShutdown = $this->getService('events.manager')->createEvent(['App\Presenters\SignPresenter', 'onShutdown'],
+			$service->onShutdown, null, false);
+		$service->onAnchor = $this->getService('events.manager')->createEvent(['App\Presenters\SignPresenter', 'onAnchor'],
+			$service->onAnchor, null, false);
+		return $service;
+	}
+
+
+	public function createServiceApplication__5(): KdybyModule\CliPresenter
 	{
 		$service = new KdybyModule\CliPresenter;
 		$service->injectPrimary($this, $this->getService('application.presenterFactory'),
@@ -675,14 +716,14 @@ class Container_4920c7fb84 extends Nette\DI\Container
 	}
 
 
-	public function createServiceApplication__5(): NetteModule\ErrorPresenter
+	public function createServiceApplication__6(): NetteModule\ErrorPresenter
 	{
 		$service = new NetteModule\ErrorPresenter($this->getService('tracy.logger'));
 		return $service;
 	}
 
 
-	public function createServiceApplication__6(): NetteModule\MicroPresenter
+	public function createServiceApplication__7(): NetteModule\MicroPresenter
 	{
 		$service = new NetteModule\MicroPresenter($this, $this->getService('http.request'),
 			$this->getService('routing.router'));
@@ -1328,7 +1369,7 @@ class Container_4920c7fb84 extends Nette\DI\Container
 
 	public function createServiceSecurity__user(): Nette\Security\User
 	{
-		$service = new Nette\Security\User($this->getService('security.userStorage'));
+		$service = new Nette\Security\User($this->getService('security.userStorage'), $this->getService('113_App_Model_Facades_UserFacade'));
 		$this->getService('tracy.bar')->addPanel(new Nette\Bridges\SecurityTracy\UserPanel($service));
 		$service->onLoggedIn = $this->getService('events.manager')->createEvent(['Nette\Security\User', 'onLoggedIn'],
 			$service->onLoggedIn, null, false);
