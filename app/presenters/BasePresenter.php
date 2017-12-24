@@ -19,7 +19,7 @@ abstract class BasePresenter extends Presenter
     public $locale;
     
     /**
-     * @var UserFacade Fasada pro manipulaci s uzivateli 
+     * @var UserFacade @inject Fasada pro manipulaci s uzivateli 
      */
     public $userFacade;
     
@@ -73,5 +73,15 @@ abstract class BasePresenter extends Presenter
     {
         parent::beforeRender();
         $this->template->userEntity = $this->userEntity;
+    }
+    
+    /**
+     * Odhlasi uzivatele z jakehokoliv mista (proto je v BasePresenteru)
+     */
+    public function handleLogout() 
+    {
+        $this->getUser()->logout(TRUE);
+        $this->flashMessage($this->translator->translate("common.youWereLoggedOut"));
+        $this->redirect("Homepage:default");
     }
 }
