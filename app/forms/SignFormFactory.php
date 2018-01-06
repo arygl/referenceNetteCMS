@@ -3,44 +3,17 @@
 namespace App\Forms;
 
 use App\Model\Entities\User as UserEntity;
-use App\Model\Facades\UserFacade;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Kdyby\Translation\Translator;
 use Nette\Application\UI\Form;
-use Nette\Object;
 use Nette\Security\AuthenticationException;
 use Nette\Utils\ArrayHash;
-use Nette\Security\User;
 
 /**
  * SignFormFactory slouzi k vyrobe registracniho formulare
  * @package App\Forms
  */
-class SignFormFactory extends Object 
+class SignFormFactory extends BaseFormFactory 
 {
-    /** @var UserFacade fasada pro praci s uzivateli */
-    private $userFacade;
-    
-    /** @var Translator */
-    private $translator;
-    
-    /** @var User Uzivatel */
-    private $user;
-
-
-    /**
-     * Konstruktor s injektoanymi tridami
-     * @param UserFacade $userFacade    injektovana trida pro praci s uzivateli
-     * @param Translator $translator    injektovana trida pro preklad
-     * @param User $user                injektovana trida uzivatele
-     */
-    public function __construct(UserFacade $userFacade, Translator $translator, User $user) 
-    {
-        $this->userFacade = $userFacade;
-        $this->translator = $translator;
-        $this->user = $user;
-    }
-    
     /**
      * Vytvari komponentu registracniho formulare
      * @return Form registr. formular 

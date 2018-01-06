@@ -3,32 +3,20 @@
 namespace App\Model\Facades;
 
 use App\Model\Entities\User;
-use Kdyby\Doctrine\EntityManager;
-use Nette\Object;
 use Nette\Security\Passwords;
 use Nette\Utils\DateTime;
 use Nette\Security\IAuthenticator;
 use Nette\Security\AuthenticationException;
 use Nette\Security\Identity;
+use Nette\Utils\ArrayHash;
+
 
 /**
  * fasada pro manipulacemi s uzivateli
  * @package App\Model\Facades
  */
-class UserFacade extends Object implements IAuthenticator
+class UserFacade extends BaseFacade implements IAuthenticator
 {
-    /** @var EntityManager Entity Manager pro praci s entitami */
-    private $em;
-    
-    /**
-     * Automaticky injektovana trida pro praci s entitami
-     * @param EntityManager $em Entity Manager pro praci s entitami
-     */
-    public function __construct(EntityManager $em) 
-    {
-        $this->em = $em;
-    }
-    
     /**
      * vrati entitu uzivatele podle jeho ID
      * @param integer $id ID uzivatele

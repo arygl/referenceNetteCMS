@@ -35,6 +35,7 @@
                     <div id="menu">
                         <a n:href="Homepage:default">{_menu.homepage}</a>
                         {if $user->isLoggedIn()}
+                            <a n:if="$userEntity->isAdmin()" n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>
                             <a n:href="logout!">{_menu.logout}</a>
                         {else}
                             <a n:href="Sign:in">{_menu.login}</a>

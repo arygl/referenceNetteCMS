@@ -24,11 +24,13 @@ database:
 
 
 services:
+        - App\Model\Facades\ArticleCategoryFacade
         - App\Model\Facades\UserFacade
         router: App\RouterFactory::createRouter
         
     #Factories
         - App\Forms\SignFormFactory
+        - App\Forms\ArticleCategoryFormFactory
 
 extensions:
         console: Kdyby\Console\DI\ConsoleExtension
