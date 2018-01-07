@@ -79,6 +79,9 @@ class Templateb5a7324f7a extends Latte\Runtime\Template
 		echo LR\Filters::escapeHtmlText(call_user_func($this->filters->translate, "menu.homepage")) ?></a>
 <?php
 		if ($user->isLoggedIn()) {
+			?>                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Article:create")) ?>"><?php
+			echo LR\Filters::escapeHtmlText(call_user_func($this->filters->translate, "menu.createArticle")) ?></a>
+<?php
 			if ($userEntity->isAdmin()) {
 				?>                            <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("ArticleCategory:manage")) ?>"><?php
 				echo LR\Filters::escapeHtmlText(call_user_func($this->filters->translate, "menu.categoriesManage")) ?></a>
@@ -141,7 +144,7 @@ class Templateb5a7324f7a extends Latte\Runtime\Template
 ?>
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="//nette.github.io/resources/js/netteForms.min.js"></script>
-    <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 59 */ ?>/js/main.js"></script>
+    <script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 60 */ ?>/js/main.js"></script>
 <?php
 	}
 

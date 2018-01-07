@@ -22,6 +22,14 @@ class ArticleCategoryFacade extends BaseFacade
         return isset($id) ? $this->em->find(ArticleCategory::class, $id) : NULL;
     }
     
+    public function getCategoriesCount() 
+    {
+        return (int)$this->em->createQuery("
+                    SELECT COUNT (ac.id)
+                    FROM App\Model\Entities\ArticleCategory ac
+                    ")->getSingleScalarResult();
+    }
+    
     public function createCategory(User $user, $data) 
     {
         if (!$user->isAdmin()) throw new InvalidArgumentException("youHaveNoPermissionsToCreateCategories");
@@ -32,5 +40,14 @@ class ArticleCategoryFacade extends BaseFacade
         
         $this->em->persist($category);
         $this->em->flush();
+    }
+    
+    /**
+     * Vrati ID a nazvy kategorii (pro formularovy select)
+     * @return ResultSet ID a nazvy kategorii
+     */
+    public function getIdsAndNames() 
+    {
+        return $this->em->getRepository(ArticleCategory::class)->findPairs([], "name", [], "id");
     }
 }

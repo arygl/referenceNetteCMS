@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Entita pro user tabulku
@@ -67,6 +69,27 @@ class User extends BaseEntity
      * @Column(type="integer")
      */
     protected $role;  
+    
+    /**
+     * Namapovana vazba uzivatele 1:N na clanky
+     * @OneToMany(targetEntity="Article", mappedBy="user")
+     */
+    protected $articles; // atribut musi byt objektem tridy ArrayCollection
+    
+    /**
+     * Konstruktor s inicializaci objektu pro vazby mezi entitami
+     */
+    public function __construct() 
+    {
+        parent::__construct();
+        $this->articles = new ArrayCollection();
+    }
+    
+    public function addArticle(Article $article)
+    {
+        $this->articles[] = $article;
+        $article->user = $this;
+    }
     
     /**
      * zjistuje, zda je uzivatel admin

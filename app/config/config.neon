@@ -26,11 +26,13 @@ database:
 services:
         - App\Model\Facades\ArticleCategoryFacade
         - App\Model\Facades\UserFacade
+        - App\Model\Facades\ArticleFacade
         router: App\RouterFactory::createRouter
         
     #Factories
         - App\Forms\SignFormFactory
         - App\Forms\ArticleCategoryFormFactory
+        - App\Forms\ArticleFormFactory
 
 extensions:
         console: Kdyby\Console\DI\ConsoleExtension
