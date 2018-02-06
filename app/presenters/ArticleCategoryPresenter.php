@@ -54,4 +54,10 @@ class ArticleCategoryPresenter extends BasePresenter
         
         return $form;
     }
+    
+    /** Predava sablone info o poctu clanku v kategoriich */
+    public function renderManage() 
+    {
+        $this->template->categories = $this->articleCategoryFacade->getArticlesCountInCategories();
+    }
 }

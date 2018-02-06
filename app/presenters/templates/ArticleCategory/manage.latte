@@ -1,4 +1,24 @@
 {block content}
 <h2>{_articleCategory.manage.header}</h2>
 <a n:href="ArticleCategory:create">{_articleCategory.addCategory}</a>
+
+<h3>{_articleCategory.categoriesList}</h3>
+
+{if count($categories) > 0}
+        <table class="infoTable">
+                <tr>
+                        <th width="200">{_common.name}</th>
+                        <th width="200">{_articleCategory.articlesCount}</th>
+                </tr>
+                {foreach $categories as $data}
+                        {var $category = $data[0]} {*Entita ArticleCategory je ulozena v promenne $data[0], pocet clánku pak v $data["articlesCount"]*}
+                        <tr>
+                                <td>{$category->name}</td>
+                                <td class="alignCenter">{$data["articlesCount"]}</td>
+                        </tr>
+                {/foreach}
+        </table>
+{else}
+        {_articleCategory.noCategories}
+{/if}
 {/block}

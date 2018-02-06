@@ -5,6 +5,7 @@ namespace App\Model\Facades;
 use App\Model\Entities\ArticleCategory;
 use Nette\InvalidArgumentException;
 use App\Model\Entities\User;
+use App\Model\Queries\ArticleCategoriesListQuery;
 
 /**
  * Fasada pro manipulaci s kategoriemi clanku
@@ -49,5 +50,16 @@ class ArticleCategoryFacade extends BaseFacade
     public function getIdsAndNames() 
     {
         return $this->em->getRepository(ArticleCategory::class)->findPairs([], "name", [], "id");
+    }
+    
+    /**
+     * Vrati kategorie s poctem svych clanku 
+     * @return ResultSet kategorie s poctem clanku
+     */
+    public function getArticlesCountInCategories() 
+    {
+        $query = new ArticleCategoriesListQuery();
+        $query->addArticlesCount();
+        return $this->em->getRepository(ArticleCategory::class)->fetch($query);
     }
 }
