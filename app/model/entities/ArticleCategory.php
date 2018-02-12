@@ -23,7 +23,7 @@ class ArticleCategory
      * @Column(type="integer")
      * @GeneratedValue
      */
-    protected $id;
+    public $id;
     
     /**
      * Jmeno kategorie
@@ -41,14 +41,13 @@ class ArticleCategory
      * Vazba 1:N katregorie na clanky
      * @OneToMany(targetEntity="Article", mappedBy="category")
      */
-    protected $articles;
+    public $articles;
     
     /**
      * Konstruktor s inicializaci objektu pro vazby mezi entitami
      */
     public function __construct() 
     {
-        parent::__construct();
         $this->articles = new ArrayCollection;
     }
     

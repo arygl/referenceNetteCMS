@@ -81,7 +81,6 @@ class User extends BaseEntity
      */
     public function __construct() 
     {
-        parent::__construct();
         $this->articles = new ArrayCollection();
     }
     
