@@ -48,7 +48,7 @@
 	"minimum-stability": "stable",
 	"config": {
 		"platform": {
-			"php": "7.1.11"
+			"php": "7.1.13"
 		}
 	}
 }

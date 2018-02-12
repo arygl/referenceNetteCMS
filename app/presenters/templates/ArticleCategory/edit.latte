@@ -1,0 +1,7 @@
+{block content}
+<h2>{_articleCategory.edit.header}</h2>
+{if $category !== NULL}
+    {control editCategoryForm}
+{else}
+    {_articleCategory.categoryDoesntExist}
+{/if}

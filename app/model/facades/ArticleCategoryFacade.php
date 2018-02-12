@@ -62,4 +62,21 @@ class ArticleCategoryFacade extends BaseFacade
         $query->addArticlesCount();
         return $this->em->getRepository(ArticleCategory::class)->fetch($query);
     }
+
+    /**
+     * Editace kategorie clanku
+     * @param ArticleCategory $category kategorie clanku
+     * @param User $user                uzivatel
+     * @param $data                     menene informace o kategorii
+     * @throws InvalidArgumentException Uzivatel nema pravo editovat kategorii
+     */
+    public function editCategory(ArticleCategory $category, User $user, $data)
+    {
+        if (!$user->isAdmin())
+            throw new InvalidArgumentException("youHaveNoPermissionsToEditCategory");
+
+        $category->name = $data->name;
+        $category->description = $data->description;
+        $this->em->flush();
+    }
 }

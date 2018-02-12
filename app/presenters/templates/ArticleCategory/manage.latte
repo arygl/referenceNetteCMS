@@ -16,6 +16,11 @@
                                 <td>{$category->name}</td>
                                 <td class="alignCenter">{$data["articlesCount"]}</td>
                         </tr>
+                        <tr>
+                                <td>{$category->name}</td>
+                                <td class="alignCenter">{$data["articlesCount"]}</td>
+                                <td class="alignCenter"><a n:href="ArticleCategory:edit $category->id">{_common.edit}</a></td>
+                        </tr>
                 {/foreach}
         </table>
 {else}
