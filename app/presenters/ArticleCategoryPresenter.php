@@ -6,6 +6,7 @@ use App\Forms\ArticleCategoryFormFactory;
 use App\Model\Entities\ArticleCategory;
 use App\Model\Facades\ArticleCategoryFacade;
 use Nette\Application\UI\Form;
+use Nette\InvalidArgumentException;
 
 /**
  * Presenter kategorii clanku
@@ -53,7 +54,7 @@ class ArticleCategoryPresenter extends BasePresenter
         {
             $pres = $form->getPresenter();
             $pres->flashMessage($this->translator->translate("articleCategory.categoryWasCreated"));
-            $pres->redirect("this");
+            $pres->redirect("ArticleCategory:manage");
         };
         
         return $form;
@@ -70,7 +71,7 @@ class ArticleCategoryPresenter extends BasePresenter
         {
             $pres = $form->getPresenter();
             $pres->flashMessage($this->translator->translate("articleCategory.categoryWasEdited"));
-            $pres->redirect("this");
+            $pres->redirect("ArticleCategory:manage");
         };
         return $form;
     }
@@ -91,6 +92,26 @@ class ArticleCategoryPresenter extends BasePresenter
                 "description" => $category->description,
             ));
     }
+
+    /**
+     * Signal pro smazani kategorie podle ID. Kdyz neni uzivatel admin, presmeruje jej na homepage
+     * @param int $id   ID kategorie, kterou chceme smazat
+     */
+    public function handleDeleteCategory($id)
+    {
+        if (!$this->userEntity->isAdmin()) $this->redirect("Homepage:default");
+
+        try
+        {
+            $this->articleCategoryFacade->deleteCategory($id);
+            $this->flashMessage($this->translator->translate("articleCategory.categoryWasDeleted"));
+        } catch (InvalidArgumentException $e)
+        {
+            $this->flashMessage($this->translator->translate("exception.{$e->getMessage()}"));
+        }
+
+        $this->redirect("ArticleCategory:manage");
+    }
     
     /** Predava sablone info o poctu clanku v kategoriich */
     public function renderManage() 
@@ -102,5 +123,20 @@ class ArticleCategoryPresenter extends BasePresenter
     public function renderEdit()
     {
         $this->template->category = $this->editedCategory;
+    }
+
+    /** Predava sablone info o poctu clanku v kategoriich */
+    public function renderList()
+    {
+        $this->template->categories = $this->articleCategoryFacade->getArticlesCountInCategories();
+    }
+
+    /**
+     * Preda sablone data o kategorii clanku, u ktere budeme videt detail
+     * @param $id   ID kategorie clanku,u ktere budeme videt detail
+     */
+    public function renderDetail($id)
+    {
+        $this->template->category = $this->articleCategoryFacade->getCategory($id);
     }
 }

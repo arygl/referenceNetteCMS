@@ -79,4 +79,18 @@ class ArticleCategoryFacade extends BaseFacade
         $category->description = $data->description;
         $this->em->flush();
     }
+
+    /**
+     * Vymaze kategorii s danym ID
+     * @param int|NULL $id              ID kategorie, ktera se ma smazat
+     * @throws InvalidArgumentException Jestlize kategorie s danym ID neexistuje
+     */
+    public function deleteCategory($id = NULL)
+    {
+        $category = $this->getCategory($id);
+        if (is_null($category)) throw new InvalidArgumentException("categoryDoesntExist");
+
+        $this->em->remove($category);
+        $this->em->flush();
+    }
 }

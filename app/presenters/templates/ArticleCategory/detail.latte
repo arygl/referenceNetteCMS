@@ -1,0 +1,23 @@
+{block content}
+<h2>{_articleCategory.detail.header}</h2>
+{ifset $category}
+    <h3>{$category->name}</h3>
+    {$category->description}
+    <h3>{_articleCategory.articles}</h3>
+    {if count($category->articles) > 0}
+        <div n:foreach="$category->articles as $article" class="articleItem">
+            <h4>{$article->title}</h4>
+            <div class="info">
+                {_common.author}: {$article->user->name}, {_common.category}: {$category->name}
+            </div>
+            <div class="content">
+                <i>{$article->content|noescape|truncate:100}</i>
+            </div>
+            <a n:href="Article:detail $article->id">{_common.readEntire} »</a>
+        </div>
+    {else}
+        {_articleCategory.noArticles}
+    {/if}
+{else}
+    {_articleCategory.categoryDoesntExist}
+{/ifset}

@@ -13,9 +13,10 @@
                 {foreach $categories as $data}
                         {var $category = $data[0]} {*Entita ArticleCategory je ulozena v promenne $data[0], pocet clánku pak v $data["articlesCount"]*}
                         <tr>
-                                <td>{$category->name}</td>
-                                <td class="alignCenter">{$data["articlesCount"]}</td>
-                                <td class="alignCenter"><a n:href="ArticleCategory:edit $category->id">{_common.edit}</a></td>
+                            <td>{$category->name}</td>
+                            <td class="alignCenter">{$data["articlesCount"]}</td>
+                            <td class="alignCenter"><a n:href="ArticleCategory:edit $category->id">{_common.edit}</a></td>
+                            <td class="alignCenter"><a n:href="deleteCategory! $category->id">{_common.delete}</a></td>
                         </tr>
                 {/foreach}
         </table>

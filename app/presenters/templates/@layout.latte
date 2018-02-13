@@ -34,6 +34,7 @@
                     </div>
                     <div id="menu">
                         <a n:href="Homepage:default">{_menu.homepage}</a>
+                        <a n:href="ArticleCategory:list">{_menu.categoriesList}</a>
                         {if $user->isLoggedIn()}
                             <a n:href="Article:create">{_menu.createArticle}</a>
                             <a n:if="$userEntity->isAdmin()" n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>

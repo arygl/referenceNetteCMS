@@ -1,0 +1,51 @@
+{block content}
+<h2>{_article.detail.header}</h2>
+{ifset $article}
+    {capture $releasedText}
+        {if $article->released}
+            {_common.yes}
+        {else}
+            {_common.no}
+        {/if}
+    {/capture}
+
+    <table class="infoTable articleDetailAdmin">
+        <tr>
+            <th>{_common.title}</th>
+            <td>{$article->title}</td>
+        </tr>
+        <tr>
+            <th>{_common.author}</th>
+            <td>{$article->user->name}</td>
+        </tr>
+        <tr>
+            <th>{_common.category}</th>
+            <td>
+                {ifset $article->category}
+                    <a n:href="ArticleCategory:detail $article->category->id">{$article->category->name}</a>
+                {else}
+                    {_common.noListed}
+                {/ifset}
+            </td>
+        </tr>
+        <tr>
+            <th>{_article.detailAdmin.released}</th>
+            <td>{$releasedText}</td>
+        </tr>
+        <tr>
+            <th colspan="2" class="content">{_common.content}</th>
+        </tr>
+        <tr>
+            <td colspan="2" class="alignLeft">{$article->content|noescape}</td>
+        </tr>
+    </table>
+
+    {if !$article->released}
+        <br /><br />
+        <a n:href="releaseArticle! $article->id">{_article.detailAdmin.release}</a>
+    {/if}
+    <br />
+    <a n:href="Article:edit $article->id">{_article.editArticle}</a>
+{else}
+    {_article.articleDoesntExist}
+{/ifset}

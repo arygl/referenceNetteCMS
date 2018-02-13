@@ -78,4 +78,54 @@ class ArticleFormFactory extends BaseFormFactory
             }
 
     }
+
+    /**
+     * Vytvari komponentu formulare pro editaci clanku
+     * @return Form Komponenta formulare pro editaci clanku
+     */
+    public function createEditArticle()
+    {
+        $form = new Form();
+        $form->addHidden("articleId");
+        $form->addText("title", $this->translator->translate("form.article.edit.title"))
+            ->setRequired($this->translator->translate("form.article.edit.titleNotFilled"))
+            ->addRule(Form::MAX_LENGTH, $this->translator->translate("form.article.edit.titleMayHaveMaxLetters"), Article::MAX_TITLE_LENGTH);
+
+        $form->addSelect("category", $this->translator->translate("form.article.edit.category"))
+            ->setItems($this->articleCategoryFacade->getIdsAndNames())
+            ->setRequired();
+
+        $form->addTextarea("content", $this->translator->translate("form.article.edit.content"))
+            ->setRequired($this->translator->translate("form.article.edit.contentNotFilled"))
+            ->setAttribute("rows", 6)
+            ->setAttribute("cols", 60);
+
+        $form->addSubmit("edit", $this->translator->translate("form.article.edit.edit"));
+        $form->onSuccess[] = array($this, "editArticleSucceeded");
+
+        return $form;
+    }
+
+    /**
+     * Vykona se pri uspesnem odeslani formulare pro editaci clanku a pokusi se ulozit editovany clanek
+     * @param Form $form        formular pro editaci clanku
+     * @param ArrayHash $values Odeslane hodnoty z formulare
+     */
+    public function editArticleSucceeded(Form $form, $values)
+    {
+        try
+        {
+            $article = $this->articleFacade->getArticle($values->articleId);
+            if (is_null($article)) throw new InvalidArgumentException("articleDoesntExist");
+
+            $category = $this->articleCategoryFacade->getCategory($values->category);
+            if (is_null($category)) throw new InvalidArgumentException("articleCategoryDoesntExist");
+
+            $values->category = $category;
+            $this->articleFacade->editArticle($article,$values);
+        }   catch (InvalidArgumentException $e)
+        {
+            $form->addError($e->getMessage());
+        }
+    }
 }

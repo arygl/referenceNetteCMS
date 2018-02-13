@@ -1,0 +1,32 @@
+{block content}
+<h2>{_article.detail.header}</h2>
+{ifset $article}
+    <table class="infoTable">
+        <tr>
+            <th>{_common.author}</th>
+            <td>{$article->user->name}</td>
+        </tr>
+        <tr>
+            <th>{_common.category}</th>
+            <td>
+                {ifset $article->category}
+                    <a n:href="ArticleCategory:detail $article->category->id">{$article->category->name}</a>
+                {else}
+                    {_common.noListed}
+                {/ifset}
+            </td>
+        </tr>
+    </table>
+
+    <h3 class="alignCenter">{$article->title}</h3>
+    {$article->content}
+    <br /><br />
+    {if $userEntity->isAdmin()}
+        <a n:href="Article:detailAdmin $article->id">{_common.detailInAdminSite}</a><br />
+        <a n:href="Article:edit $article->id">{_article.editArticle}</a>
+    {elseif $userEntity === $article->user}
+        <a n:href="Article:edit $article->id">{_article.editArticle}</a>
+    {/if}
+{else}
+    {_article.articleDoesntExist}
+{/ifset}

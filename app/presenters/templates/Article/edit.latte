@@ -1,0 +1,7 @@
+{block content}
+<h2>{_article.edit.header}</h2>
+{ifset $article}
+    {control editArticleForm}
+{else}
+    {_article.articleDoesntExist}
+{/ifset}

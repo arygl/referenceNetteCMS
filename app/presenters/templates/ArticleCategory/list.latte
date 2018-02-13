@@ -1,0 +1,12 @@
+{block content}
+<h2>{_articleCategory.list.header}</h2>
+{if count($categories) > 0}
+    {foreach $categories as $data}
+        {var $category = $data[0]}
+        <h3 style="margin:10px 0 0 0;"><a n:href="ArticleCategory:detail $category->id">{$category->name}</a></h3>
+        {$category->description}<br />
+        <i>{_articleCategory.articlesCount}: {$data["articlesCount"]}</i>
+    {/foreach}
+{else}
+    {_articleCategory.noCategories}
+{/if}
