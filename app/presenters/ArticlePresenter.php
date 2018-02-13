@@ -4,7 +4,6 @@ namespace App\Presenters;
 
 use App\Forms\ArticleFormFactory;
 use App\Model\Facades\ArticleCategoryFacade;
-use App\Model\Facades\ArticleFacade;
 use Nette\Application\UI\Form;
 use App\Model\Entities\Article;
 
@@ -14,9 +13,6 @@ use App\Model\Entities\Article;
  */
 class ArticlePresenter extends BasePresenter
 {
-    /** @var ArticleFacade Fasada pro praci s clanky*/
-    private $articleFacade;
-    
     /** @var ArticleCategoryFacade Fasada pro praci s kategoriemi clanku*/
     private $articleCategoryFacade;
     
@@ -32,11 +28,10 @@ class ArticlePresenter extends BasePresenter
      * @param ArticleCategoryFacade $articleCategoryFacade  injektovana Fasada pro praci s kategoriemi clanku
      * @param ArticleFormFactory $formFactory               injektovana Factory na vyrobu formulare pro vytvareni clanku
      */
-    public function __construct(ArticleFacade $articleFacade, ArticleCategoryFacade $articleCategoryFacade, ArticleFormFactory $formFactory) 
+    public function __construct(ArticleCategoryFacade $articleCategoryFacade, ArticleFormFactory $formFactory)
     {
         parent::__construct();
         $this->articleCategoryFacade = $articleCategoryFacade;
-        $this->articleFacade = $articleFacade;
         $this->formFactory = $formFactory;
     }
     
@@ -150,5 +145,30 @@ class ArticlePresenter extends BasePresenter
                 $this->flashMessage($e->getMessage());
             }
         $this->redirect("Article:detailAdmin", array("id" => $id));
+    }
+
+    /** Presmeruje uzivatele na Homepage, pokud neni admin */
+    public function actionNew()
+    {
+        if (!$this->userEntity->isAdmin()) $this->redirect("Homepage:default");
+    }
+
+    /** Preda sablone data o nepublikovanych clancich */
+    public function renderNew()
+    {
+        $this->template->articles = $this->articleFacade->getNoReleasedArticles();
+    }
+
+    /** Pokud uzivatel neni prihlasen, presmerujeme ho na stranku s prihlasovacim formularem */
+    public function actionMyArticles()
+    {
+        if (!$this->getUser()->isLoggedIn())
+            $this->redirect("Sign:in");
+    }
+
+    /** Preda do sablony data o clancich, ktere patri uzivateli */
+    public function renderMyArticles()
+    {
+        $this->template->articles = $this->userEntity->articles;
     }
 }

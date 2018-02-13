@@ -1,0 +1,30 @@
+{block content}
+<h2>{_article.myArticles.header}</h2>
+{if count($articles) > 0}
+    <table class="infoTable">
+        <tr>
+            <th width="200">{_common.title}</th>
+            <th width="200">{_article.myArticles.released}</th>
+            <th width="200"></th>
+            <th width="200"></th>
+        </tr>
+        {foreach $articles as $article}
+            {capture $releasedText}
+                {if $article->released}
+                    {_common.yes}
+                {else}
+                    {_common.no}
+                {/if}
+            {/capture}
+
+            <tr>
+                <td>{$article->title}</td>
+                <td class="alignCenter">{$releasedText}</td>
+                <td class="alignCenter"><a n:href="Article:detail $article->id">{_article.myArticles.view}</a></td>
+                <td class="alignCenter"><a n:href="Article:edit $article->id">{_common.edit}</a></td>
+            </tr>
+        {/foreach}
+    </table>
+{else}
+    {_article.myArticles.youHaveNoArticles}
+{/if}

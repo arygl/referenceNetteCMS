@@ -7,7 +7,7 @@ use App\Model\Facades\UserFacade;
 use Kdyby\Translation\Translator;
 use Nette\Application\UI\Presenter;
 use Nette\Bridges\ApplicationLatte\Template;
-
+use App\Model\Facades\ArticleFacade;
 
 /**
  * Základní presenter pro všechny ostatni presentery v aplikaci
@@ -33,6 +33,9 @@ abstract class BasePresenter extends Presenter
      * @inject
      */
     public $translator;
+
+    /** @var  ArticleFacade Fasada pro manipulaci s clanky */
+    protected $articleFacade;
     
     /**
      * Registrace makra na preklad,  diky kteremu lze v sablone prelozit text a nemusi se překlady ukladat do promennych a predavat sablonam
@@ -45,6 +48,11 @@ abstract class BasePresenter extends Presenter
         $this->translator->createTemplateHelpers()
                 ->register($template->getLatte());
         return $template;
+    }
+
+    public function injectArticleFacade(ArticleFacade $articleFacade)
+    {
+        $this->articleFacade = $articleFacade;
     }
     
     /**
@@ -73,6 +81,8 @@ abstract class BasePresenter extends Presenter
     {
         parent::beforeRender();
         $this->template->userEntity = $this->userEntity;
+        if ($this->userEntity->isAdmin())
+            $this->template->newArticlesCount = $this->articleFacade->getNoReleasedArticlesCount();
     }
     
     /**

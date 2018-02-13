@@ -1,0 +1,26 @@
+{block content}
+<h2>{_article.new.header}</h2>
+{if count($articles) > 0}
+    <table class="infoTable">
+        <tr>
+            <th width="200">{_common.title}</th>
+            <th width="200">{_common.category}</th>
+            <th width="200">{_common.author}</th>
+            <th></th>
+        </tr>
+        <tr n:foreach="$articles as $article">
+            <td>{$article->title}</td>
+            <td>
+                {ifset $article->category}
+                    {$article->category->name}
+                {else}
+                    <i>{_common.noListed}</i>
+                {/ifset}
+            </td>
+            <td>{$article->user->name}</td>
+            <td><a n:href="Article:detailAdmin $article->id">{_common.detail}</a></td>
+        </tr>
+    </table>
+{else}
+    {_article.new.noArticles}
+{/if}

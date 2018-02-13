@@ -8,6 +8,7 @@ use App\Model\Entities\User;
 use Nette\InvalidArgumentException;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\DateTime;
+use App\Model\Queries\ArticlesListQuery;
 
 /**
  * Fasada pro praci se clanky
@@ -28,9 +29,9 @@ class ArticleFacade extends BaseFacade
     
     /**
      *  Metoda pro vytvoreni clanku 
-     * @param User $user                        Uzivatel
+     * @param User $user                 Uzivatel
      * @param ArticleCategory $category  Kategorie clanku
-     * @param ArrayHash $data                   Uzivatelska data pro vyvoreni clanku           
+     * @param ArrayHash $data            Uzivatelska data pro vyvoreni clanku
      */
     public function createArticle(User $user, ArticleCategory $category, $data) 
     {
@@ -74,5 +75,43 @@ class ArticleFacade extends BaseFacade
         $article->released = TRUE;
         $article->releaseDate = new DateTime();
         $this->em->flush();
+    }
+
+    /**
+     * Vrati dany pocet poslednich clanku
+     * @param $num          Pocet clanku, ktery ma vratit
+     * @return ResultSet    Vrati dany pocet poslednich clanku
+     */
+    public function getLatestArticles($num)
+    {
+        $query = new ArticlesListQuery();
+        $query->onlyReleased();
+        return $this->em->getRepository(Article::class)
+                ->fetch($query)
+                ->applyPaging(NULL,$num);
+    }
+
+    /**
+     * Vraci seznam nepublikovanych clanku
+     * @return ResultSet    Nepublikovane clanky
+     */
+    public function getNoReleasedArticles()
+    {
+        $query = new ArticlesListQuery();
+        $query->onlyNoReleased();
+        return $this->em->getRepository(Article::class)->fetch($query);
+    }
+
+    /**
+     * Vrati pocet nepublikovanych clanku
+     * @return int pocet nepublikovanych clanku
+     */
+    public function getNoReleasedArticlesCount()
+    {
+        return (int)$this->em->createQuery("
+                SELECT COUNT(a.id)
+                FROM App\Model\Entities\Article a
+                WHERE a.released = 0
+        ")->getSingleScalarResult();
     }
 }

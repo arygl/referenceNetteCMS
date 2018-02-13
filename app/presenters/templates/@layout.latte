@@ -37,7 +37,11 @@
                         <a n:href="ArticleCategory:list">{_menu.categoriesList}</a>
                         {if $user->isLoggedIn()}
                             <a n:href="Article:create">{_menu.createArticle}</a>
-                            <a n:if="$userEntity->isAdmin()" n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>
+                            <a n:href="Article:myArticles">{_menu.myArticles}</a>
+                            {if $userEntity->isAdmin()}
+                                <a n:href="Article:new">{_menu.newArticles} ({$newArticlesCount})</a>
+                                <a n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>
+                            {/if}
                             <a n:href="logout!">{_menu.logout}</a>
                         {else}
                             <a n:href="Sign:in">{_menu.login}</a>
