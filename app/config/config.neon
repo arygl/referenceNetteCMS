@@ -33,6 +33,7 @@ services:
         - App\Forms\SignFormFactory
         - App\Forms\ArticleCategoryFormFactory
         - App\Forms\ArticleFormFactory
+        - App\Forms\UserFormFactory
 
 extensions:
         console: Kdyby\Console\DI\ConsoleExtension

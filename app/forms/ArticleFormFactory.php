@@ -128,4 +128,45 @@ class ArticleFormFactory extends BaseFormFactory
             $form->addError($e->getMessage());
         }
     }
+
+    /**
+     * Vytvari komponentu formulare pro pridavani komentaru
+     * @return Form formular pro pridavani komentaru ke clanku
+     */
+    public function createAddComment()
+    {
+        $form = new Form();
+        $form->addHidden("articleId");
+
+        $form->addTextArea("content",$this->translator->translate("form.article.addComment.content"))
+                ->setRequired($this->translator->translate("form.article.addComment.contentNotFilled"))
+                ->setAttribute("rows", 6)
+                ->setAttribute("cols", 60);
+
+        $form->addSubmit("addComment",$this->translator->translate("form.article.addComment.add"));
+        $form->onSuccess[] = array($this, "addCommentSucceeded");
+
+        return $form;
+    }
+
+    /**
+     * Vykona se pri uspesnem odeslani formulare k pridani komentare k clanku a pokusi se jej pridat
+     * @param Form $form                Formular k pridani komentare k clanku
+     * @param ArrayHash $values         Hodnoty vyplnene uzivatelem
+     * @throws InvalidArgumentException Jestlize neexistuje clanek, k nemuz chceme pridat komentar
+     */
+    public function addCommentSucceeded(Form $form, $values)
+    {
+        try
+        {
+            $article = $this->articleFacade->getArticle($values->articleId);
+            if (is_null($article)) throw new InvalidArgumentException("articleDoesntExist");
+
+            $user = $this->user->isLoggedIn() ? $this->userFacade->getUser($this->user->getId()) : NULL;
+            $this->articleFacade->addComment($article,$user,$values->content);
+        }   catch (InvalidArgumentException $e)
+        {
+            $form->addError($e->getMessage());
+        }
+    }
 }

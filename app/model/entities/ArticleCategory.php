@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package App\Model\Entities
  * @Entity
  */
-class ArticleCategory 
+class ArticleCategory extends BaseEntity
 {
     /**
      * Id kategorie
@@ -23,32 +23,32 @@ class ArticleCategory
      * @Column(type="integer")
      * @GeneratedValue
      */
-    public $id;
+    protected $id;
     
     /**
      * Jmeno kategorie
      * @Column(type="string")
      */
-    public $name;
+    protected $name;
     
     /**
      * Popis kategorie
      * @Column(type="string")
      */
-    public $description;
+    protected $description;
     
     /**
      * Vazba 1:N katregorie na clanky
      * @OneToMany(targetEntity="Article", mappedBy="category")
      */
-    public $articles;
+    protected $articles;
     
     /**
      * Konstruktor s inicializaci objektu pro vazby mezi entitami
      */
     public function __construct() 
     {
-        $this->articles = new ArrayCollection;
+        $this->articles = new ArrayCollection();
     }
     
     public function addArticle($article) 

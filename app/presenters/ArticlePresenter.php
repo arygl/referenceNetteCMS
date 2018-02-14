@@ -51,6 +51,17 @@ class ArticlePresenter extends BasePresenter
         $this->template->articleCategoriesCount = $this->articleCategoryFacade->getCategoriesCount();
     }
 
+    /**
+     * Preda formulari k pridavani komentaru ID clanku, ke kteremu se vaze dany komentar
+     * @param int $id   ID clanku
+     */
+    public function actionDetail($id)
+    {
+        $this->searchedArticle = $article = $this->articleFacade->getArticle($id);
+        if (isset($article))
+            $this["addCommentForm"]->setDefaults(array("articleId" => $id));
+    }
+    
     /** Presmeruje na domovskou stranku, pokud neni uzivatel admin */
     public function actionDetailAdmin($id)
     {
@@ -66,9 +77,9 @@ class ArticlePresenter extends BasePresenter
      * Preda sablone data o clanku, u ktereho bude videt detail
      * @param int $id ID clanku, u ktereho bude videt detail
      */
-    public function renderDetail($id)
+    public function renderDetail()
     {
-        $this->template->article = $this->articleFacade->getArticle($id);
+        $this->template->article = $this->searchedArticle;
     }
     
     /**
@@ -170,5 +181,21 @@ class ArticlePresenter extends BasePresenter
     public function renderMyArticles()
     {
         $this->template->articles = $this->userEntity->articles;
+    }
+
+    /**
+     * Vytvari komponentu formulae pro pridavani komentare k clanku
+     * @return Form komponenta formulare pro pridavani komentare k clanku
+     */
+    public function createComponentAddCommentForm()
+    {
+        $form = $this->formFactory->createAddComment();
+        $form->onSuccess[] = function ()
+        {
+            $this->flashMessage($this->translator->translate("article.commentWasAdded"));
+            $this->redirect("this");
+        };
+
+        return $form;
     }
 }

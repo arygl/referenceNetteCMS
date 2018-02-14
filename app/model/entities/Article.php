@@ -2,6 +2,8 @@
 
 namespace App\Model\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\OneToMany;
 use Kdyby\Doctrine\Entities\BaseEntity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Column;
@@ -19,6 +21,31 @@ class Article extends BaseEntity
 {
     /** Maximalni delka nazvu clanku */
     const MAX_TITLE_LENGTH = 25;
+
+    /**
+     * Namapovana vazba 1:N clanku na komentare
+     * @OneToMany(targetEntity="ArticleComment", mappedBy="article")
+     */
+    protected $comments;
+
+    /**
+     * Konstruktor s inicializaci objektu pro vazby mezi entitami
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->comments = new ArrayCollection();
+    }
+
+    /**
+     * Prida komentar k danemu clanku
+     * @param ArticleComment $comment   Novy komentar
+     */
+    public function addComment(ArticleComment $comment)
+    {
+        $this->comments[] = $comment;
+        $comment->article = $this;
+    }
 
     /**
      * ID clanku

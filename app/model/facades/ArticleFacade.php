@@ -4,6 +4,7 @@ namespace App\Model\Facades;
 
 use App\Model\Entities\Article;
 use App\Model\Entities\ArticleCategory;
+use App\Model\Entities\ArticleComment;
 use App\Model\Entities\User;
 use Nette\InvalidArgumentException;
 use Nette\Utils\ArrayHash;
@@ -113,5 +114,22 @@ class ArticleFacade extends BaseFacade
                 FROM App\Model\Entities\Article a
                 WHERE a.released = 0
         ")->getSingleScalarResult();
+    }
+
+    /**
+     * Prida novz komentar k danemu clanku
+     * @param Article $article  Clanek
+     * @param User|NULL $user   Uzivatel nebo NULL pokud nebzl prihlasen
+     * @param string $content   Obsah komentare
+     */
+    public function addComment(Article $article, $user, $content)
+    {
+        $comment = new ArticleComment();
+        $comment->content = $content;
+        $comment->date = new DateTime();
+        $comment->article = $article;
+        $comment->author = $user;
+        $this->em->persist($comment);
+        $this->em->flush();
     }
 }

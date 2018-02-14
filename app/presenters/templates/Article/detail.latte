@@ -27,6 +27,20 @@
     {elseif $userEntity === $article->user}
         <a n:href="Article:edit $article->id">{_article.editArticle}</a>
     {/if}
+
+    <h4>{_article.comments}</h4>
+    {control addCommentForm}
+    <hr />
+    {if count($article->comments) > 0}
+        {foreach $article->comments as $comment}
+            <a n:if="$comment->author" n:href="User:profile $comment->author->id">{$comment->author->name}</a>({$comment->date|date: "d.m.Y - H:i:s"})<br />
+            {$comment->content}
+            <br /><br />
+        {/foreach}
+    {else}
+        {_article.noComments}
+    {/if}
+
 {else}
     {_article.articleDoesntExist}
 {/ifset}

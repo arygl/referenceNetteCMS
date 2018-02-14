@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * Entita pro user tabulku
@@ -75,6 +76,12 @@ class User extends BaseEntity
      * @OneToMany(targetEntity="Article", mappedBy="user")
      */
     protected $articles; // atribut musi byt objektem tridy ArrayCollection
+
+    /**
+     * Namapovana vazba mezi uzivatelem a nastavenim uctu 1:1
+     * @OneToOne(targetEntity="UserSettings", mappedBy="user")
+     */
+    protected $settings;
     
     /**
      * Konstruktor s inicializaci objektu pro vazby mezi entitami
