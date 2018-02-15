@@ -10,7 +10,6 @@ use Nette\Security\AuthenticationException;
 use Nette\Security\Identity;
 use Nette\Utils\ArrayHash;
 
-
 /**
  * fasada pro manipulacemi s uzivateli
  * @package App\Model\Facades
@@ -62,5 +61,17 @@ class UserFacade extends BaseFacade implements IAuthenticator
         }
         
         return new Identity($user->id);
+    }
+
+    /**
+     * Zmeni nastaveni uzivatele
+     * @param User $user        Uzivatel
+     * @param ArrayHash $values Nove hodnoty
+     */
+    public function updateSettings(User $user, $values)
+    {
+        $settings = $user->settings;
+        $settings->description=$values->description;
+        $this->em->flush();
     }
 }

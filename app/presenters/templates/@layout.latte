@@ -42,6 +42,7 @@
                                 <a n:href="Article:new">{_menu.newArticles} ({$newArticlesCount})</a>
                                 <a n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>
                             {/if}
+                            <a n:href="User:profile $user->id">{_menu.profile}</a>
                             <a n:href="logout!">{_menu.logout}</a>
                         {else}
                             <a n:href="Sign:in">{_menu.login}</a>
