@@ -119,4 +119,20 @@ class UserFacade extends BaseFacade implements IAuthenticator
         $this->em->persist($settings);
         $this->em->flush();
     }
+
+    /**
+     * Upravi hodnoty uzivatele
+     * @param User $user        uzivatel
+     * @param ArrayHash $values editovane udaje
+     */
+    public function editUser(User $user, $values)
+    {
+        $role = $values->isAdmin ? User::ROLE_ADMIN : User::ROLE_USER;
+
+        $user->name = $values->name;
+        $user->email = $values->email;
+        $user->role = $role;
+
+        $this->em->flush();
+    }
 }

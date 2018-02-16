@@ -84,4 +84,47 @@ class UserFormFactory extends BaseFormFactory
             $form->addError($this->translator->translate("form.user.add.userWithThisNameAlreadyExists"));
         }
     }
+
+    /**
+     * Vytvari komponentu formulare pro editaci uzivatele
+     * @return Form Formular pro editaci uzivatele
+     */
+    public function createEditUser()
+    {
+        $form = new Form();
+        $form->addHidden("userId");
+
+        $form->addText("name", $this->translator->translate("form.user.edit.name"))
+            ->setRequired($this->translator->translate("form.user.edit.nameNotFilled"))
+            ->addRule(Form::MAX_LENGTH, $this->translator->translate("form.user.edit.nameMayHaveMaxLetters"), UserEntity::MAX_USERNAME_LENGTH)
+            ->addRule(Form::PATTERN, $this->translator->translate("common.userNameBadFormat"), UserEntity::USERNAME_FORMAT);;
+
+        $form->addText("email", $this->translator->translate("form.user.edit.email"))
+            ->setRequired($this->translator->translate("form.user.edit.emailNotFilled"))
+            ->addRule(Form::EMAIL, $this->translator->translate("form.user.edit.emailBadFormat"));
+
+        $form->addCheckbox("isAdmin", $this->translator->translate("form.user.edit.admin"));
+
+        $form->addSubmit("editUser", $this->translator->translate("form.user.edit.edit"));
+        $form->onSuccess[] = array($this, "editUserSucceeded");
+
+        return $form;
+    }
+
+    /**
+     * Vykona se po uspesnem odeslani formulare a pokusi se editovat data
+     * @param Form $form        Formular pro editaci uzivatele
+     * @param ArrayHash $values Hodnoty z formulare
+     */
+    public function editUserSucceeded(Form $form, $values)
+    {
+        try {
+            $user = $this->userFacade->getUser($values->userId);
+            if (is_null($user)) throw new InvalidArgumentException("userDoesntExist");
+
+            $this->userFacade->editUser($user, $values);
+        } catch (InvalidArgumentException $e) {
+            $form->addError($this->translator->translate("exception.{$e->getMessage()}"));
+        }
+    }
 }

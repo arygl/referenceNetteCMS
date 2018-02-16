@@ -32,6 +32,8 @@
     {/if}
     <br />
     <a n:if="$userEntity->isAdmin()||$userEntity->id == $searchedUser->id" n:href="User:settings">{_menu.settings}</a>
+    <br />
+    <a n:if="$userEntity->isAdmin()" n:href="User:edit $searchedUser->id">{_common.editUser}</a>
 {else}
     {_user.userDoesntExist}
 {/ifset}

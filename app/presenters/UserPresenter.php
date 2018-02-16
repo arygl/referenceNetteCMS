@@ -11,10 +11,11 @@ use Nette\Application\UI\Form;
  */
 class UserPresenter extends BasePresenter
 {
-    /**
-     * @var UserFormFactory Factory pro vyrobu formularu uzivatele
-     */
+    /** @var UserFormFactory Factory pro vyrobu formularu uzivatele */
     private $formFactory;
+
+    /** @var UserEntity Uzivatel, ktery ma byt editovan */
+    private $searchedUser;
 
     public function __construct(UserFormFactory $formFactory)
     {
@@ -87,6 +88,48 @@ class UserPresenter extends BasePresenter
             $this->flashMessage($this->translator->translate("user.userWasAdded"));
             $this->redirect("this");
         };
+        return $form;
+    }
+
+    /**
+     * Naplni formular daty uzivatele, ktereho chceme editovat. Pokud neni uzivatel admin, presmerujeme ho
+     * na homepage
+     * @param int $id   ID uzivatele k editaci
+     */
+    public function actionEdit($id)
+    {
+        if (!$this->userEntity->isAdmin()) $this->redirect("Homepage:default");
+
+        $this->searchedUser = $user = $this->userFacade->getUser($id);
+
+        if (isset($user))
+            $this["editUserForm"]->setDefaults(array(
+                "userId" => $id,
+                "name" => $user->name,
+                "email" => $user->email,
+                "isAdmin" => $user->isAdmin()
+            ));
+    }
+
+    /** Preda sablone data o uzivateli k editaci */
+    public function renderEdit()
+    {
+        $this->template->searchedUser = $this->searchedUser;
+    }
+
+    /**
+     * Vytvari komponentu formulare pro editaci uzivatele
+     * @return Form formular pro editaci uzivatele
+     */
+    public function createComponentEditUserForm()
+    {
+        $form = $this->formFactory->createEditUser();
+        $form->onSuccess[] = function ()
+        {
+            $this->flashMessage($this->translator->translate("user.userWasEdited"));
+            $this->redirect("this");
+        };
+
         return $form;
     }
 }
