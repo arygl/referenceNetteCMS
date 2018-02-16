@@ -41,6 +41,7 @@
                             {if $userEntity->isAdmin()}
                                 <a n:href="Article:new">{_menu.newArticles} ({$newArticlesCount})</a>
                                 <a n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>
+                                <a n:href="User:manage">{_menu.usersManage}</a>
                             {/if}
                             <a n:href="User:profile $user->id">{_menu.profile}</a>
                             <a n:href="logout!">{_menu.logout}</a>

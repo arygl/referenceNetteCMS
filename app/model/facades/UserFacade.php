@@ -3,6 +3,8 @@
 namespace App\Model\Facades;
 
 use App\Model\Entities\User;
+use App\Model\Entities\UserSettings;
+use App\Model\Queries\UserListQuery;
 use Nette\Security\Passwords;
 use Nette\Utils\DateTime;
 use Nette\Security\IAuthenticator;
@@ -25,8 +27,11 @@ class UserFacade extends BaseFacade implements IAuthenticator
     {
         return isset($id) ? $this->em->find(User::class, $id) : NULL;
     }
-    
-    
+
+    /**
+     * Registruje noveho uzivatele do databaze
+     * @param ArrayHash $values hodnoty pro noveho uzivatele
+     */
     public function registerUser($values) 
     {
         $user = new User;
@@ -36,7 +41,12 @@ class UserFacade extends BaseFacade implements IAuthenticator
         $user->ip = $values->ip;
         $user->role = User::ROLE_USER;
         $user->registrationDate = new DateTime();
+
+        $settings = new UserSettings(); // aby se pridal zaznam i do tabulky user_settings
+        $settings->user = $user;
+
         $this->em->persist($user);
+        $this->em->persist($settings);
         $this->em->flush();
     }
     
@@ -72,6 +82,41 @@ class UserFacade extends BaseFacade implements IAuthenticator
     {
         $settings = $user->settings;
         $settings->description=$values->description;
+        $this->em->flush();
+    }
+
+    /**
+     * Vraci seznam uzivatelu serazeny podle jejich jmen vzestupne
+     * @return ResultSet    seznam uzivatelu
+     */
+    public function getUserList()
+    {
+        $query = new UserListQuery();
+        $query->orderByName();
+        return $this->em->getRepository(User::class)->fetch($query);
+    }
+
+    /**
+     * Prida noveho uzivatele do databaze
+     * @param ArrayHash $values hodnoty pro noveho uzivatele
+     */
+    public function addUser($values)
+    {
+        $role = $values->isAdmin ? User::ROLE_ADMIN : User::ROLE_USER;
+
+        $user = new User();
+        $user->name = $values->name;
+        $user->password = Passwords::hash($values->password);
+        $user->email = $values->email;
+        $user->ip = "";
+        $user->role = $role;
+        $user->registrationDate = new DateTime();
+
+        $settings = new UserSettings(); // aby se pridal zaznam i do tabulky user_settings
+        $settings->user = $user;
+
+        $this->em->persist($user);
+        $this->em->persist($settings);
         $this->em->flush();
     }
 }

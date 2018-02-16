@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Forms\UserFormFactory;
-use Nette\Forms\Form;
+use Nette\Application\UI\Form;
 
 /**
  * Class UserPresenter  Presenter pro uzivatele
@@ -55,5 +55,38 @@ class UserPresenter extends BasePresenter
     public function renderProfile($id)
     {
         $this->template->searchedUser = $this->userFacade->getUser($id);
+    }
+
+    /** Presmeruje uzivatele na homepage, pokud neni admin */
+    public function actionManage()
+    {
+        if (!$this->userEntity->isAdmin()) $this->redirect("Homepage:default");
+
+    }
+
+    /** preda sablone data o uzivatelich */
+    public function renderManage()
+    {
+        $this->template->users = $this->userFacade->getUserList();
+    }
+
+    /** Presmeruje uzivatele na homepage, pokud neni admin */
+    public function actionAdd()
+    {
+        if (!$this->userEntity->isAdmin()) $this->redirect("Homepage:default");
+    }
+
+    /**
+     * Vytvari komponentu formulare pro pridani uzivatele
+     * @return Form komponenta formulare pro pridani uzivatele
+     */
+    public function createComponentAddUserForm()
+    {
+        $form = $this->formFactory->createAddUser();
+        $form->onSuccess[] = function () {
+            $this->flashMessage($this->translator->translate("user.userWasAdded"));
+            $this->redirect("this");
+        };
+        return $form;
     }
 }
