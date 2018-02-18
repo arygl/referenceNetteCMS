@@ -6,6 +6,7 @@ use App\Forms\ArticleFormFactory;
 use App\Model\Facades\ArticleCategoryFacade;
 use Nette\Application\UI\Form;
 use App\Model\Entities\Article;
+use Nette\InvalidArgumentException;
 
 /**
  * Presnter pro clanky
@@ -197,5 +198,21 @@ class ArticlePresenter extends BasePresenter
         };
 
         return $form;
+    }
+
+    public function handleDeleteArticle($id)
+    {
+        if (!$this->userEntity->isAdmin()) $this->redirect("Homepage:default");
+
+        try
+        {
+            $this->articleFacade->deleteArticle($id);
+            $this->flashMessage($this->translator->translate("article.articleWasDeleted"));
+        } catch (InvalidArgumentException $e)
+        {
+            $this->flashMessage($this->translator->translate("exception.{$e->getMessage()}"));
+        }
+
+        $this->redirect("this");
     }
 }

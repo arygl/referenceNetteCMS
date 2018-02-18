@@ -132,4 +132,17 @@ class ArticleFacade extends BaseFacade
         $this->em->persist($comment);
         $this->em->flush();
     }
+
+    /**
+     * Pokusi se smazat dany clanek podle jeho ID. Pokud neexistuje, vyhodi vyjimku
+     * @param int|null $id  ID clanku, ktery se ma smazat
+     */
+    public function deleteArticle($id = NULL)
+    {
+        $article = $this->getArticle($id);
+        if (is_null($article)) throw new InvalidArgumentException("articleDoesntExist");
+
+        $this->em->remove($article);
+        $this->em->flush();
+    }
 }

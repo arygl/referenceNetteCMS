@@ -46,6 +46,8 @@
     {/if}
     <br />
     <a n:href="Article:edit $article->id">{_article.editArticle}</a>
+    <br />
+    <a n:href="deleteArticle! $article->id">{_article.deleteArticle}</a>
 {else}
     {_article.articleDoesntExist}
 {/ifset}

@@ -19,11 +19,12 @@
     </table>
 
     <h3 class="alignCenter">{$article->title}</h3>
-    {$article->content}
+    {$article->content|noescape}
     <br /><br />
     {if $userEntity->isAdmin()}
         <a n:href="Article:detailAdmin $article->id">{_common.detailInAdminSite}</a><br />
-        <a n:href="Article:edit $article->id">{_article.editArticle}</a>
+        <a n:href="Article:edit $article->id">{_article.editArticle}</a><br />
+        <a n:href="deleteArticle! $article->id">{_article.deleteArticle}</a>
     {elseif $userEntity === $article->user}
         <a n:href="Article:edit $article->id">{_article.editArticle}</a>
     {/if}

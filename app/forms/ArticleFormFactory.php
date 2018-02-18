@@ -56,10 +56,10 @@ class ArticleFormFactory extends BaseFormFactory
         
         $form->addTextarea("content", $this->translator->translate("form.article.create.content"))
                 ->setRequired($this->translator->translate("form.article.create.contentNotFilled"))
-                ->setAttribute("rows", 6)
-                ->setAttribute("cols", 60);
+                ->setAttribute("class","mceEditor");
 
         $form->addSubmit("create", $this->translator->translate("form.article.create.create"));
+        $form->getComponent("create")->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = array($this, "createArticleSucceeded");
 
         return $form;
@@ -97,10 +97,10 @@ class ArticleFormFactory extends BaseFormFactory
 
         $form->addTextarea("content", $this->translator->translate("form.article.edit.content"))
             ->setRequired($this->translator->translate("form.article.edit.contentNotFilled"))
-            ->setAttribute("rows", 6)
-            ->setAttribute("cols", 60);
+            ->setAttribute("class","mceEditor");
 
         $form->addSubmit("edit", $this->translator->translate("form.article.edit.edit"));
+        $form->getComponent("edit")->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = array($this, "editArticleSucceeded");
 
         return $form;
