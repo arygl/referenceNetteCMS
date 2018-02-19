@@ -15,7 +15,7 @@
                     {_common.author}: {$article->user->name}, {_common.category}: {$category->name}
                 </div>
                 <div class="content">
-                    <i>{$article->content|noescape|truncate:100}</i>
+                    <i>{$article->content|noescape|striptags|trim|truncate:100}</i>
                 </div>
             <a n:href="Article:detail $article->id">{_common.readEntire} »</a>
             </div>

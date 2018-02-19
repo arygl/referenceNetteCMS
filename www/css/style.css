@@ -6,6 +6,7 @@ html, body {
     padding: 0;
     height: 100%;
 
+
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+50,ededed+100 */
     background: rgb(255, 255, 255); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* FF3.6+ */
@@ -15,6 +16,8 @@ html, body {
     background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* IE10+ */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 50%, rgba(237, 237, 237, 1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0); /* IE6-9 */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 
@@ -105,10 +108,6 @@ html, body {
     font-size: 20px;
 }
 
-#footer .text {
-    margin-top: 10px;
-    margin-left: 30px;
-}
 
 .articleItem {
     width: 350px;
