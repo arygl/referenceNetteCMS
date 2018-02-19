@@ -33,7 +33,8 @@ class SignFormFactory extends BaseFormFactory
                 ->setRequired($this->translator->translate("form.sign.up.emailNotFilled"))
                 ->addRule(Form::EMAIL, $this->translator->translate("form.sign.up.emailBadFormat"));
         
-        $form->addSubmit("signUp", $this->translator->translate("form.sign.up.signUp"));
+        $form->addSubmit("signUp", $this->translator->translate("form.sign.up.signUp"))
+                ->setAttribute("class", "btn btn-primary");
     
         $form->onSuccess[] = array($this, "signUpSucceeded");
         
@@ -55,7 +56,8 @@ class SignFormFactory extends BaseFormFactory
         
         $form->addCheckbox("remember",$this->translator->translate("form.sign.in.remember"));
         
-        $form->addSubmit("signIn", $this->translator->translate("form.sign.in.signIn"));
+        $form->addSubmit("signIn", $this->translator->translate("form.sign.in.signIn"))
+                ->setAttribute("class", "btn btn-primary");
         
         $form->onSuccess[] = array($this, "signInSucceeded");
         

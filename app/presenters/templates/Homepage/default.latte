@@ -1,11 +1,15 @@
 {block content}
-<h2>{_homepage.header}</h2>
+<div class="container">
+    <h2 class="text-center" style="margin: 20px; margin-bottom: 20px">{_homepage.header}</h2>
+</div>
+<div class="container" style="margin-bottom: 20px">
 <h3>{_homepage.newestArticles}</h3>
+</div>
 {if count($articles) > 0}
     <div n:foreach="$articles as $article" class="articleItem">
         <h4>{$article->title}</h4>
         <div class="info">
-            {$article->user->name}, {_common.category}:
+            {_common.author}: {$article->user->name}, {_common.category}:
             {ifset $article->category}
                 <a n:href="ArticleCategory:detail $article->category->id">{$article->category->name}</a>
             {else}
@@ -13,7 +17,7 @@
             {/ifset}
         </div>
         <div class="content">
-            <i>{$article->content|noescape|truncate:100}</i>
+            <i>{$article->content|noescape|striptags|trim|truncate:100}</i>
         </div>
         <a n:href="Article:detail $article->id">{_common.readEntire} ... »</a>
     </div>

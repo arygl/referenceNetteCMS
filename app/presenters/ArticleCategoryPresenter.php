@@ -53,7 +53,7 @@ class ArticleCategoryPresenter extends BasePresenter
         $form->onSuccess[] = function (Form $form)
         {
             $pres = $form->getPresenter();
-            $pres->flashMessage($this->translator->translate("articleCategory.categoryWasCreated"));
+            $pres->flashMessage($this->translator->translate("articleCategory.categoryWasCreated"), "alert-success");
             $pres->redirect("ArticleCategory:manage");
         };
         
@@ -70,7 +70,7 @@ class ArticleCategoryPresenter extends BasePresenter
         $form->onSuccess[] = function (Form $form)
         {
             $pres = $form->getPresenter();
-            $pres->flashMessage($this->translator->translate("articleCategory.categoryWasEdited"));
+            $pres->flashMessage($this->translator->translate("articleCategory.categoryWasEdited"),"alert-success");
             $pres->redirect("ArticleCategory:manage");
         };
         return $form;
@@ -104,10 +104,10 @@ class ArticleCategoryPresenter extends BasePresenter
         try
         {
             $this->articleCategoryFacade->deleteCategory($id);
-            $this->flashMessage($this->translator->translate("articleCategory.categoryWasDeleted"));
+            $this->flashMessage($this->translator->translate("articleCategory.categoryWasDeleted"), "alert-info");
         } catch (InvalidArgumentException $e)
         {
-            $this->flashMessage($this->translator->translate("exception.{$e->getMessage()}"));
+            $this->flashMessage($this->translator->translate("exception.{$e->getMessage()}"),"alert-danger");
         }
 
         $this->redirect("ArticleCategory:manage");

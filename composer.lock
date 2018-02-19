@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f60e4e751855500ed8e185d80b4ebba2",
+    "content-hash": "c7e35ce5f8e6699dba992cb049343605",
     "packages": [
         {
             "name": "dg/adminer-custom",
-            "version": "v1.11.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dg/adminer-custom.git",
-                "reference": "c8fbb0e52990243ded782415a7bb5b73ac978dd1"
+                "reference": "595cde18b2392ce6fbd8b97236c1e81dc89300fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dg/adminer-custom/zipball/c8fbb0e52990243ded782415a7bb5b73ac978dd1",
-                "reference": "c8fbb0e52990243ded782415a7bb5b73ac978dd1",
+                "url": "https://api.github.com/repos/dg/adminer-custom/zipball/595cde18b2392ce6fbd8b97236c1e81dc89300fa",
+                "reference": "595cde18b2392ce6fbd8b97236c1e81dc89300fa",
                 "shasum": ""
             },
             "type": "library",
@@ -33,7 +33,7 @@
                 "postgresql",
                 "sqlite"
             ],
-            "time": "2018-02-09T13:15:28+00:00"
+            "time": "2017-03-16T15:10:36+00:00"
         },
         {
             "name": "doctrine/annotations",

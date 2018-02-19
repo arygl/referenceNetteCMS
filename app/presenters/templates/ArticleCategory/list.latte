@@ -1,5 +1,7 @@
 {block content}
-<h2>{_articleCategory.list.header}</h2>
+<div class="container">
+    <h2 class="text-center" style="margin: 20px; margin-bottom: 20px">{_articleCategory.list.header}</h2>
+</div>
 {if count($categories) > 0}
     {foreach $categories as $data}
         {var $category = $data[0]}

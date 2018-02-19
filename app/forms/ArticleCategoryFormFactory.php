@@ -48,7 +48,8 @@ class ArticleCategoryFormFactory extends BaseFormFactory
                 ->setAttribute("rows",3)
                 ->setAttribute("cols", 40);
         
-        $form->addSubmit("create", $this->translator->translate("form.articleCategory.create.create"));
+        $form->addSubmit("create", $this->translator->translate("form.articleCategory.create.create"))
+                ->setAttribute("class", "btn btn-primary");
         
         $form->onSuccess[] = array($this, "createCategorySucceeded");
         
@@ -81,7 +82,9 @@ class ArticleCategoryFormFactory extends BaseFormFactory
             ->setAttribute("cols", 40)
             ->setRequired($this->translator->translate("form.articleCategory.edit.descriptionNotFilled"));
 
-        $form->addSubmit("edit", $this->translator->translate("form.articleCategory.edit.edit"));
+        $form->addSubmit("edit", $this->translator->translate("form.articleCategory.edit.edit"))
+            ->setAttribute("class", "btn btn-primary");
+
         $form->addHidden("categoryId");
         $form->onSuccess[] = array($this, "editCategorySucceeded");
 

@@ -43,7 +43,7 @@ class UserPresenter extends BasePresenter
     {
         $form = $this->formFactory->createUpdateSettings();
         $form->onSuccess[] = function () {
-            $this->flashMessage($this->translator->translate("user.settingsWereUpdated"));
+            $this->flashMessage($this->translator->translate("user.settingsWereUpdated"), "alert-info");
             $this->redirect("this");
         };
         return $form;
@@ -85,7 +85,7 @@ class UserPresenter extends BasePresenter
     {
         $form = $this->formFactory->createAddUser();
         $form->onSuccess[] = function () {
-            $this->flashMessage($this->translator->translate("user.userWasAdded"));
+            $this->flashMessage($this->translator->translate("user.userWasAdded"), "alert-success");
             $this->redirect("this");
         };
         return $form;
@@ -126,7 +126,7 @@ class UserPresenter extends BasePresenter
         $form = $this->formFactory->createEditUser();
         $form->onSuccess[] = function ()
         {
-            $this->flashMessage($this->translator->translate("user.userWasEdited"));
+            $this->flashMessage($this->translator->translate("user.userWasEdited"), "alert-info");
             $this->redirect("this");
         };
 

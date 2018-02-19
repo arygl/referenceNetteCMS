@@ -25,7 +25,9 @@ class UserFormFactory extends BaseFormFactory
                 ->setAttribute("rows", 4)
                 ->setAttribute("cols", 40);
 
-        $form->addSubmit("updateSettings", $this->translator->translate("form.user.settings.update"));
+        $form->addSubmit("updateSettings", $this->translator->translate("form.user.settings.update"))
+                ->setAttribute("class", "btn btn-primary");
+
         $form->onSuccess[] = array($this, "updateSettingsSucceeded");
 
         return $form;
@@ -63,7 +65,9 @@ class UserFormFactory extends BaseFormFactory
 
         $form->addCheckbox("isAdmin", $this->translator->translate("form.user.add.admin"));
 
-        $form->addSubmit("addUser", $this->translator->translate("form.user.add.add"));
+        $form->addSubmit("addUser", $this->translator->translate("form.user.add.add"))
+            ->setAttribute("class", "btn btn-primary");
+
         $form->onSuccess[] = array($this, "addUserSucceeded");
 
         return $form;
@@ -105,7 +109,9 @@ class UserFormFactory extends BaseFormFactory
 
         $form->addCheckbox("isAdmin", $this->translator->translate("form.user.edit.admin"));
 
-        $form->addSubmit("editUser", $this->translator->translate("form.user.edit.edit"));
+        $form->addSubmit("editUser", $this->translator->translate("form.user.edit.edit"))
+            ->setAttribute("class", "btn btn-primary");
+
         $form->onSuccess[] = array($this, "editUserSucceeded");
 
         return $form;

@@ -25,7 +25,7 @@ class SignPresenter extends BasePresenter
         $form = $this->formFactory->createSignUp();
         $form->onSuccess[] = function (Form $form) {
             $pres = $form->getPresenter();
-            $pres->flashMessage($this->translator->translate("sign.youWereSignedUp"));
+            $pres->flashMessage($this->translator->translate("sign.youWereSignedUp"), "alert-success");
             $pres->redirect("this");
         };
         return $form;
@@ -40,7 +40,7 @@ class SignPresenter extends BasePresenter
         $form = $this->formFactory->createSignIn();
         $form->onSuccess[] = function (Form $form) {
             $pres = $form->getPresenter();
-            $pres->flashMessage($this->translator->translate("sign.youWereLoggedIn"));
+            $pres->flashMessage($this->translator->translate("sign.youWereLoggedIn"), "alert-success");
             $pres->redirect("this");
         };   
         return $form;

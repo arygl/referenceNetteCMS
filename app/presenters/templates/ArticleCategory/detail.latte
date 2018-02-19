@@ -1,5 +1,7 @@
 {block content}
-<h2>{_articleCategory.detail.header}</h2>
+<div class="container">
+    <h2 class="text-center" style="margin: 20px; margin-bottom: 20px">{_articleCategory.detail.header}</h2>
+</div>
 {ifset $category}
     <h3>{$category->name}</h3>
     {$category->description}

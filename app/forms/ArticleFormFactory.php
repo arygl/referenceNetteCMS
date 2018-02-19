@@ -58,7 +58,9 @@ class ArticleFormFactory extends BaseFormFactory
                 ->setRequired($this->translator->translate("form.article.create.contentNotFilled"))
                 ->setAttribute("class","mceEditor");
 
-        $form->addSubmit("create", $this->translator->translate("form.article.create.create"));
+        $form->addSubmit("create", $this->translator->translate("form.article.create.create"))
+                ->setAttribute("class", "btn btn-primary");
+
         $form->getComponent("create")->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = array($this, "createArticleSucceeded");
 
@@ -99,7 +101,8 @@ class ArticleFormFactory extends BaseFormFactory
             ->setRequired($this->translator->translate("form.article.edit.contentNotFilled"))
             ->setAttribute("class","mceEditor");
 
-        $form->addSubmit("edit", $this->translator->translate("form.article.edit.edit"));
+        $form->addSubmit("edit", $this->translator->translate("form.article.edit.edit"))
+            ->setAttribute("class", "btn btn-primary");
         $form->getComponent("edit")->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = array($this, "editArticleSucceeded");
 
@@ -143,7 +146,9 @@ class ArticleFormFactory extends BaseFormFactory
                 ->setAttribute("rows", 6)
                 ->setAttribute("cols", 60);
 
-        $form->addSubmit("addComment",$this->translator->translate("form.article.addComment.add"));
+        $form->addSubmit("addComment",$this->translator->translate("form.article.addComment.add"))
+                ->setAttribute("class", "btn btn-primary");
+
         $form->onSuccess[] = array($this, "addCommentSucceeded");
 
         return $form;

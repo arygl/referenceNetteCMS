@@ -7,64 +7,91 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="{$basePath}/favicon.ico">
-	<link rel="stylesheet" href="{$basePath}/css/style.css">
-	{block head}{/block}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
+    {block head}{/block}
 </head>
 <body>
-    <div id="container">
-
+    <div class="container">
             {if count($flashes) > 0}
-                    <div id="flashes">
-                            <div class="text">
-                                    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
-                                            {$flash->message}
-                                    </div>
-                            </div>
-                    </div>
+                <div n:foreach="$flashes as $flash" n:class="alert, $flash->type">
+                    {$flash->message}
+                </div>
             {/if}
 
-            <div id="header">
-                    <div id="logo">
-                            <h1>Blog system</h1>
-                    </div>
-                    <div id="userInfo">
-                            {if $user->isLoggedIn()}
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="display-4">Blog system</h1>
+                            <p class="lead">This is a simple CMS using Nette and Doctrine 2</p>
+                        </div>
+                        <div class="col">
+                            <div class="text-right">
+                                {if $user->isLoggedIn()}
                                     {_common.loggedAs}: {$userEntity->name}
-                            {/if}
+                                {/if}
+                            </div>
+                        </div>
                     </div>
-                    <div id="menu">
-                        <a n:href="Homepage:default">{_menu.homepage}</a>
-                        <a n:href="ArticleCategory:list">{_menu.categoriesList}</a>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" n:href="Homepage:default">{_menu.homepage}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" n:href="ArticleCategory:list">{_menu.categoriesList}</a>
+                            </li>
                         {if $user->isLoggedIn()}
-                            <a n:href="Article:create">{_menu.createArticle}</a>
-                            <a n:href="Article:myArticles">{_menu.myArticles}</a>
+                            <li class="nav-item">
+                                <a class="nav-link" n:href="Article:create">{_menu.createArticle}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" n:href="Article:myArticles">{_menu.myArticles}</a>
+                            </li>
                             {if $userEntity->isAdmin()}
-                                <a n:href="Article:new">{_menu.newArticles} ({$newArticlesCount})</a>
-                                <a n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>
-                                <a n:href="User:manage">{_menu.usersManage}</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" n:href="Article:new">{_menu.newArticles} ({$newArticlesCount})</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" n:href="ArticleCategory:manage">{_menu.categoriesManage}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" n:href="User:manage">{_menu.usersManage}</a>
+                                </li>
                             {/if}
-                            <a n:href="User:profile $user->id">{_menu.profile}</a>
-                            <a n:href="logout!">{_menu.logout}</a>
+                            <li class="nav-item">
+                                <a class="nav-link" n:href="User:profile $user->id">{_menu.profile}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" n:href="logout!">{_menu.logout}</a>
+                            </li>
                         {else}
-                            <a n:href="Sign:in">{_menu.login}</a>
-                            <a n:href="Sign:up">{_menu.signUp}</a>
-                         {/if}
-                    </div>
+                            <li class="nav-item">
+                                <a class="nav-link" n:href="Sign:in">{_menu.login}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" n:href="Sign:up">{_menu.signUp}</a>
+                            </li>
+                        {/if}
+                    </ul>
+                </nav>
             </div>
-            <div id="content">
+            <div class="container">
                     {include content}
             </div>
-            <div id="footer">
-                    <div class="text">
-                            &copy; Konesoft Corporation
+            <footer class="footer">
+                    <div class="container">
+                        <span class="text-muted">&copy; Adam Rygl</span>
                     </div>
-            </div>
+            </footer>
     </div>
 
     {block scripts}
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="//nette.github.io/resources/js/netteForms.min.js"></script>
-    <script src="{$basePath}/js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     {/block}
 </body>
 </html>

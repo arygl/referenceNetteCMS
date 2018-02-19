@@ -1,5 +1,7 @@
 {block content}
-<h2>{_article.detail.header}</h2>
+<div class="container">
+    <h2 class="text-center" style="margin: 20px; margin-bottom: 20px">{_article.detail.header}</h2>
+</div>
 {ifset $article}
     {capture $releasedText}
         {if $article->released}

@@ -1,5 +1,7 @@
 {block content}
-<h2>{_articleCategory.manage.header}</h2>
+<div class="container">    
+    <h2 class="text-center" style="margin: 20px; margin-bottom: 20px">{_articleCategory.manage.header}</h2>
+</div>
 <a n:href="ArticleCategory:create">{_articleCategory.addCategory}</a>
 
 <h3>{_articleCategory.categoriesList}</h3>
@@ -9,6 +11,8 @@
                 <tr>
                         <th width="200">{_common.name}</th>
                         <th width="200">{_articleCategory.articlesCount}</th>
+                        <th></th>
+                        <th></th>
                 </tr>
                 {foreach $categories as $data}
                         {var $category = $data[0]} {*Entita ArticleCategory je ulozena v promenne $data[0], pocet clánku pak v $data["articlesCount"]*}

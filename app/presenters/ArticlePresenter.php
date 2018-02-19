@@ -93,7 +93,7 @@ class ArticlePresenter extends BasePresenter
         $form->onSuccess[] = function (Form $form)
         {
             $pres = $form->getPresenter();
-            $pres->flashMessage($this->translator->translate("article.articleWasSentToBeReleased"));
+            $pres->flashMessage($this->translator->translate("article.articleWasSentToBeReleased"), "alert-info");
             $pres->redirect("this");
         };
         return $form;
@@ -107,7 +107,7 @@ class ArticlePresenter extends BasePresenter
     {
         $form = $this->formFactory->createEditArticle();
         $form->onSuccess[] = function () {
-            $this->flashMessage($this->translator->translate("article.articleWasEdited"));
+            $this->flashMessage($this->translator->translate("article.articleWasEdited"), "alert-success");
             $this->redirect("this");
         };
         return $form;
@@ -152,9 +152,9 @@ class ArticlePresenter extends BasePresenter
         if (isset($id))
             try {
                 $this->articleFacade->releaseArticle($id, $this->userEntity);
-                $this->flashMessage($this->translator->translate("article.articleWasReleased"));
+                $this->flashMessage($this->translator->translate("article.articleWasReleased"),"alert-success");
             } catch (InvalidArgumentException $e) {
-                $this->flashMessage($e->getMessage());
+                $this->flashMessage($e->getMessage(),"alert-danger");
             }
         $this->redirect("Article:detailAdmin", array("id" => $id));
     }
@@ -193,13 +193,17 @@ class ArticlePresenter extends BasePresenter
         $form = $this->formFactory->createAddComment();
         $form->onSuccess[] = function ()
         {
-            $this->flashMessage($this->translator->translate("article.commentWasAdded"));
+            $this->flashMessage($this->translator->translate("article.commentWasAdded"), "alert-success");
             $this->redirect("this");
         };
 
         return $form;
     }
 
+    /**
+     * Signal vedouci k vymazani clanku
+     * @param int $id   ID clanku, ktery ma byt vymazan
+     */
     public function handleDeleteArticle($id)
     {
         if (!$this->userEntity->isAdmin()) $this->redirect("Homepage:default");
@@ -207,10 +211,10 @@ class ArticlePresenter extends BasePresenter
         try
         {
             $this->articleFacade->deleteArticle($id);
-            $this->flashMessage($this->translator->translate("article.articleWasDeleted"));
+            $this->flashMessage($this->translator->translate("article.articleWasDeleted"), "alert-info");
         } catch (InvalidArgumentException $e)
         {
-            $this->flashMessage($this->translator->translate("exception.{$e->getMessage()}"));
+            $this->flashMessage($this->translator->translate("exception.{$e->getMessage()}"), "alert-danger");
         }
 
         $this->redirect("this");

@@ -1,5 +1,7 @@
 {block content}
-<h2>{_articleCategory.edit.header}</h2>
+<div class="container">
+    <h2 class="text-center" style="margin: 20px; margin-bottom: 20px">{_articleCategory.edit.header}</h2>
+</div>
 {if $category !== NULL}
     {control editCategoryForm}
 {else}

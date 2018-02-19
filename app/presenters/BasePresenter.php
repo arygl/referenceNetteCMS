@@ -91,7 +91,7 @@ abstract class BasePresenter extends Presenter
     public function handleLogout() 
     {
         $this->getUser()->logout(TRUE);
-        $this->flashMessage($this->translator->translate("common.youWereLoggedOut"));
+        $this->flashMessage($this->translator->translate("common.youWereLoggedOut"), "alert-info");
         $this->redirect("Homepage:default");
     }
 }

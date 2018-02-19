@@ -1,13 +1,17 @@
 {block content}
-<h2>{_article.myArticles.header}</h2>
+<div class="container">
+    <h2 class="text-center" style="margin: 20px; margin-bottom: 20px">{_article.myArticles.header}</h2>
+</div>
 {if count($articles) > 0}
-    <table class="infoTable">
-        <tr>
-            <th width="200">{_common.title}</th>
-            <th width="200">{_article.myArticles.released}</th>
-            <th width="200"></th>
-            <th width="200"></th>
-        </tr>
+    <table class="table table-bordered">
+        <thead class="thead-dark"
+            <tr>
+                <th width="200">{_common.title}</th>
+                <th width="200">{_article.myArticles.released}</th>
+                <th width="200"></th>
+                <th width="200"></th>
+            </tr>
+        </thead>
         {foreach $articles as $article}
             {capture $releasedText}
                 {if $article->released}
